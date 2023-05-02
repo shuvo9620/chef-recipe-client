@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Button, Form, Container, Row, Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGoogle, faGithub } from '@fortawesome/free-brands-svg-icons';
@@ -8,7 +8,10 @@ import { AuthContext } from '../../provider/AuthProvider';
 
 const Login = () => {
 
+    const [user, setUser] = useState(null);
+
     const { createUserByGoogle } = useContext(AuthContext);
+    const { createUserByGithub } = useContext(AuthContext);
 
     const handleLogin = event => {
         const form = event.target;
@@ -22,9 +25,22 @@ const Login = () => {
             .then(result => {
                 const loggedInUser = result.user;
                 console.log(loggedInUser);
+                setUser(loggedInUser);
             })
             .catch(error => {
-                console.log(error.message);
+                console.error(error.message);
+            })
+    }
+
+    const handleLoginByGithub = () => {
+        createUserByGithub()
+            .then(result => {
+                const loggedInUser = result.user;
+                console.log(loggedInUser);
+                setUser(loggedInUser);
+            })
+            .catch(error => {
+                console.error(error.message);
             })
     }
 
@@ -56,8 +72,11 @@ const Login = () => {
                             <FontAwesomeIcon icon={faGoogle} />
                             Sign in with Google
                         </Button>
+                        {user && <div>
+                            <h3>User: {user.displayName}</h3>
+                        </div>}
 
-                        <Button variant="dark">
+                        <Button onClick={handleLoginByGithub} variant="dark">
                             <FontAwesomeIcon icon={faGithub} />
                             Sign in with GitHub
                         </Button>
