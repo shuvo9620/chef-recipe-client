@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navbar, Nav, NavDropdown, Button, Image, Container } from 'react-bootstrap';
+import { Navbar, Nav, Button, Image, Container } from 'react-bootstrap';
 import profile_img from '../../../assets/images/profile.png'
 
 const Header = () => {
