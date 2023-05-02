@@ -4,9 +4,10 @@ import profile_img from '../../../assets/images/profile.png'
 import img1 from '../../../assets/images/1.jpg'
 import img2 from '../../../assets/images/2.jpg'
 import img3 from '../../../assets/images/3.jpg'
+import { Link } from 'react-router-dom';
 
 const Header = () => {
-    const signedIn = true;
+    const signedIn = false;
     const userName = "Shuvo";
     return (
         <Container>
@@ -22,7 +23,9 @@ const Header = () => {
                         {signedIn ?
                             <Image style={{ height: '40px' }} src={profile_img} roundedCircle title={userName} className="flex-grow-1" />
                             :
-                            <Button variant="outline-success">Login</Button>
+                            <Link to='/login'>
+                                <Button variant="outline-success">Login</Button>
+                            </Link>
                         }
                     </Nav>
                 </Navbar.Collapse>
@@ -45,7 +48,7 @@ const Header = () => {
                     <Carousel.Item>
                         <img
                             className="d-block w-100 rounded"
-                            style={{ height: "80vh"}}
+                            style={{ height: "80vh" }}
                             src={img2}
                             alt="Second slide"
                         />
