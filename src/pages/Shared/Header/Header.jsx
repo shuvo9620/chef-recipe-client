@@ -1,30 +1,37 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Navbar, Nav, Button, Image, Container, Carousel } from 'react-bootstrap';
-import profile_img from '../../../assets/images/profile.png'
 import img1 from '../../../assets/images/1.jpg'
 import img2 from '../../../assets/images/2.jpg'
 import img3 from '../../../assets/images/3.jpg'
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../../provider/AuthProvider';
 
 const Header = () => {
-    const signedIn = false;
-    const userName = "Shuvo";
+    const { user, logOut } = useContext(AuthContext);
+
+    const handleLogOut = () => {
+        logOut()
+            .then(() => { })
+            .catch(error => console.error(error))
+    }
+
     return (
         <Container>
             <Navbar bg="light" expand="lg">
-                <Navbar.Brand href="#">Chef Recipe</Navbar.Brand>
+                <Navbar.Brand href="http://localhost:5173/">Chef Recipe</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="mr-auto d-flex">
-                        <Nav.Link href="#">Home</Nav.Link>
+                    <Nav className="mr-auto d-flex flex-grow-1">
+                        <Nav.Link href="http://localhost:5173/">Home</Nav.Link>
                         <Nav.Link href="#">Blog</Nav.Link>
                     </Nav>
                     <Nav>
-                        {signedIn ?
-                            <Image style={{ height: '40px' }} src={profile_img} roundedCircle title={userName} className="flex-grow-1" />
-                            :
-                            <Link to='/login'>
-                                <Button variant="outline-success">Login</Button>
+                        {
+                            user ? <>
+                                <Image style={{ height: '40px' }} src={user.photoURL} roundedCircle title={user.displayName} />
+                                <Button className='ms-4' onClick={handleLogOut} variant="danger">Logout</Button>
+                            </> : <Link to='/login'>
+                                <Button variant="primary">Login</Button>
                             </Link>
                         }
                     </Nav>

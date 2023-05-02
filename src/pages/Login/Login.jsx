@@ -84,9 +84,6 @@ const Login = () => {
                             <FontAwesomeIcon icon={faGoogle} />
                             Sign in with Google
                         </Button>
-                        {user && <div>
-                            <h3>User: {user.displayName}</h3>
-                        </div>}
 
                         <Button onClick={handleLoginByGithub} variant="dark">
                             <FontAwesomeIcon icon={faGithub} />
