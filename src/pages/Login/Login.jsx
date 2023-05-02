@@ -12,12 +12,24 @@ const Login = () => {
 
     const { createUserByGoogle } = useContext(AuthContext);
     const { createUserByGithub } = useContext(AuthContext);
+    const { signIn } = useContext(AuthContext);
 
     const handleLogin = event => {
+        event.preventDefault();
         const form = event.target;
         const email = form.email.value;
         const password = form.password.value;
         console.log(email, password);
+
+        signIn(email, password)
+            .then(result => {
+                const loggedInUser = result.user;
+                console.log(loggedInUser);
+                setUser(loggedInUser);
+            })
+            .catch(error => {
+                console.error(error.message);
+            })
     }
 
     const handleLoginByGoogle = () => {

@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../provider/AuthProvider';
 
 const Register = () => {
+    const { createUser } = useContext(AuthContext);
+
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -11,30 +14,46 @@ const Register = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
+        const form = event.target;
+        const name = form.name.value;
+        const email = form.email.value;
+        const password = form.password.value;
+        const photo = form.photo.value;
+        console.log(name, email, password, photo);
+
+        createUser(email, password)
+            .then(result => {
+                const createdUser = result.user;
+                console.log(createdUser);
+                setName(createdUser);
+            })
+            .catch(error => {
+                console.error(error.message);
+            })
     };
     return (
         <div className="d-flex justify-content-center align-items-center w-75">
             <div className="col-md-6">
                 <h1>Registration</h1>
-                <Form>
+                <Form onSubmit={handleSubmit}>
                     <Form.Group controlId="formBasicName">
                         <Form.Label>Name</Form.Label>
-                        <Form.Control type="text" placeholder="Enter name" />
+                        <Form.Control type="text" name='name' placeholder="Enter name" required />
                     </Form.Group>
 
                     <Form.Group controlId="formBasicEmail">
                         <Form.Label>Email address</Form.Label>
-                        <Form.Control type="email" placeholder="Enter email" />
+                        <Form.Control type="email" name='email' placeholder="Enter email" required />
                     </Form.Group>
 
                     <Form.Group controlId="formBasicPassword">
                         <Form.Label>Password</Form.Label>
-                        <Form.Control type="password" placeholder="Password" />
+                        <Form.Control type="password" name='password' placeholder="Password" required />
                     </Form.Group>
 
                     <Form.Group controlId="formBasicPhotoUrl">
                         <Form.Label>Photo URL</Form.Label>
-                        <Form.Control type="text" placeholder="Enter photo URL" />
+                        <Form.Control type="text" name='photo' placeholder="Enter photo URL" />
                     </Form.Group>
 
                     <div className='text-center'>
