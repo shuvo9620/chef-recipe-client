@@ -7,7 +7,7 @@ import { AuthContext } from '../../provider/AuthProvider';
 
 
 const Login = () => {
-
+    const [error, setError] = useState('');
     const [user, setUser] = useState(null);
 
     const { createUserByGoogle } = useContext(AuthContext);
@@ -26,9 +26,12 @@ const Login = () => {
                 const loggedInUser = result.user;
                 console.log(loggedInUser);
                 setUser(loggedInUser);
+                setError('');
+                form.reset();
             })
             .catch(error => {
                 console.error(error.message);
+                setError(error.message);
             })
     }
 
@@ -90,6 +93,7 @@ const Login = () => {
                             Sign in with GitHub
                         </Button>
                     </Form>
+                    <p className='text-danger'>{error}</p>
 
                     <p className="mt-3">
                         Don't have an account?

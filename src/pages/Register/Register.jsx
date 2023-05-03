@@ -6,12 +6,9 @@ import { AuthContext } from '../../provider/AuthProvider';
 import { updateProfile } from 'firebase/auth';
 
 const Register = () => {
+    const [error, setError] = useState('');
     const { createUser } = useContext(AuthContext);
 
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [photoUrl, setPhotoUrl] = useState('');
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -26,11 +23,9 @@ const Register = () => {
             .then(result => {
                 const createdUser = result.user;
                 console.log(createdUser);
-                setName(createdUser);
-                setEmail(createdUser);
-                setPhotoUrl(createdUser);
-                setPassword(createdUser);
                 updateUserData(result.user, name, photo);
+                setError('');
+                form.reset();
             })
             .catch(error => {
                 setError(error.message);
@@ -71,7 +66,7 @@ const Register = () => {
 
                     <Form.Group controlId="formBasicPhotoUrl">
                         <Form.Label>Photo URL</Form.Label>
-                        <Form.Control type="text" name='photo' placeholder="Enter photo URL" />
+                        <Form.Control type="text" name='photo' placeholder="Enter photo URL" required />
                     </Form.Group>
 
                     <div className='text-center'>
@@ -80,6 +75,7 @@ const Register = () => {
                         </Button>
                     </div>
                 </Form>
+                <p className='text-danger'>{error}</p>
 
                 <p className="mt-3">
                     Already have an account?
