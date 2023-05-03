@@ -7,17 +7,31 @@ import { updateProfile } from 'firebase/auth';
 
 const Register = () => {
     const [error, setError] = useState('');
+    const [success, setSuccess] = useState('');
+
     const { createUser } = useContext(AuthContext);
 
 
     const handleSubmit = (event) => {
         event.preventDefault();
+        setSuccess('');
+        setError('');
         const form = event.target;
         const name = form.name.value;
         const email = form.email.value;
         const password = form.password.value;
         const photo = form.photo.value;
         console.log(name, email, password, photo);
+
+        //validation
+        if (!/(?=.*[A-Z])/.test(password)) {
+            setError('Please add one uppercase');
+            return;
+        }
+        else if (password.length < 6) {
+            setError('Password must be 6 Character long');
+            return;
+        }
 
         createUser(email, password, name, photo)
             .then(result => {
@@ -26,6 +40,7 @@ const Register = () => {
                 updateUserData(result.user, name, photo);
                 setError('');
                 form.reset();
+                setSuccess('User created Successfully')
             })
             .catch(error => {
                 setError(error.message);
@@ -76,6 +91,7 @@ const Register = () => {
                     </div>
                 </Form>
                 <p className='text-danger'>{error}</p>
+                <p className='text-success'>{success}</p>
 
                 <p className="mt-3">
                     Already have an account?
