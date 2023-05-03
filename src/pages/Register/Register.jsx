@@ -3,6 +3,7 @@ import { Button, Form } from 'react-bootstrap';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../provider/AuthProvider';
+import { updateProfile } from 'firebase/auth';
 
 const Register = () => {
     const { createUser } = useContext(AuthContext);
@@ -29,11 +30,25 @@ const Register = () => {
                 setEmail(createdUser);
                 setPhotoUrl(createdUser);
                 setPassword(createdUser);
+                updateUserData(result.user, name, photo);
             })
             .catch(error => {
-                console.error(error.message);
+                setError(error.message);
             })
     };
+
+    const updateUserData = (user, name, photo) => {
+        updateProfile(user, {
+            displayName: name,
+            photoURL: photo
+        })
+            .then(() => {
+                console.log('user profile updated');
+            })
+            .catch(error => {
+                console.error(error.message)
+            })
+    }
     return (
         <div className="d-flex justify-content-center align-items-center w-75">
             <div className="col-md-6">
