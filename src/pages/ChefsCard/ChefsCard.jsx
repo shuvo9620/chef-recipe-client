@@ -6,10 +6,10 @@ const LazyCardImg = lazy(() => import('react-bootstrap/CardImg'));
 
 const ChefsCard = ({ chef }) => {
   const { id, name, experience, recipes, likes, picture } = chef;
-  console.log(id);
+
   return (
     <Container>
-      <Card>
+      <Card className='mb-4'>
         <Suspense fallback={<div>Loading...</div>}>
           <LazyCardImg style={{height: '300px'}} variant="top" src={picture} />
         </Suspense>
@@ -29,4 +29,4 @@ const ChefsCard = ({ chef }) => {
   );
 };
 
-export default ChefsCard;
+export default ChefsCard;

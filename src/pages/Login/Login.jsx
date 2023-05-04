@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import { Button, Form, Container, Row, Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGoogle, faGithub } from '@fortawesome/free-brands-svg-icons';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../provider/AuthProvider';
 
 
@@ -13,6 +13,11 @@ const Login = () => {
     const { createUserByGoogle } = useContext(AuthContext);
     const { createUserByGithub } = useContext(AuthContext);
     const { signIn } = useContext(AuthContext);
+    const location = useLocation();
+    const navigate = useNavigate();
+
+    console.log(location);
+    const from = location.state?.from?.pathname || '/';
 
     const handleLogin = event => {
         event.preventDefault();
@@ -26,6 +31,7 @@ const Login = () => {
                 const loggedInUser = result.user;
                 console.log(loggedInUser);
                 setUser(loggedInUser);
+                navigate(from,{replace:true});
                 setError('');
                 form.reset();
             })
@@ -41,6 +47,7 @@ const Login = () => {
                 const loggedInUser = result.user;
                 console.log(loggedInUser);
                 setUser(loggedInUser);
+                navigate(from,{replace:true});
             })
             .catch(error => {
                 console.error(error.message);
@@ -52,6 +59,7 @@ const Login = () => {
             .then(result => {
                 const loggedInUser = result.user;
                 console.log(loggedInUser);
+                navigate(from,{replace:true});
                 setUser(loggedInUser);
             })
             .catch(error => {
