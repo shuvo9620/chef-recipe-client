@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ChefsCard from '../../ChefsCard/ChefsCard';
+import MenuItem from '../../MenuItem/MenuItem';
 
 const Home = () => {
     const [chefs, setChefs] = useState([]);
@@ -23,6 +24,20 @@ const Home = () => {
                         >
 
                         </ChefsCard>)
+
+                    }
+                </div>
+            </div>
+            <div>
+                <h2 className="mb-5 text-center">Our Recipes</h2>
+                <div className="container row row-cols-1 row-cols-md-2 row-cols-lg-3 mx-auto">
+                    {
+                        chefs.map(menu => <MenuItem
+                            key={menu.id}
+                            menu={menu}
+                        >
+
+                        </MenuItem>)
 
                     }
                 </div>

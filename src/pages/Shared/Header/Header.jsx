@@ -5,6 +5,7 @@ import img2 from '../../../assets/images/2.jpg'
 import img3 from '../../../assets/images/3.jpg'
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../provider/AuthProvider';
+import ActiveLink from './ActiveLink/ActiveLink';
 
 const Header = () => {
     const { user, logOut } = useContext(AuthContext);
@@ -18,12 +19,12 @@ const Header = () => {
     return (
         <Container>
             <Navbar bg="light" expand="lg">
-                <Navbar.Brand href="http://localhost:5173/">Chef Recipe</Navbar.Brand>
+                <Navbar.Brand to="/">Chef Recipe</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="mr-auto d-flex flex-grow-1">
-                        <Nav.Link href="http://localhost:5173/">Home</Nav.Link>
-                        <Nav.Link href="#">Blog</Nav.Link>
+                        <ActiveLink to="/">Home</ActiveLink>
+                        <ActiveLink to="/blog">Blog</ActiveLink>
                     </Nav>
                     <Nav>
                         {

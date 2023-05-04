@@ -1,0 +1,13 @@
+.activee{
+    background-color: blue;
+    padding: 5px;
+    color: white;
+    border-radius: 5px;
+    margin: 10px;
+}
+.inactive{
+    padding: 5px;
+    color: rgb(163, 66, 66);
+    border-radius: 5px;
+    margin: 10px;
+}
