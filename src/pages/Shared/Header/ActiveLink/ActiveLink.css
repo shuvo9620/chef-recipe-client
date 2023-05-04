@@ -4,10 +4,12 @@
     color: white;
     border-radius: 5px;
     margin: 10px;
+    text-decoration: none;
 }
 .inactive{
     padding: 5px;
     color: rgb(163, 66, 66);
     border-radius: 5px;
     margin: 10px;
+    text-decoration: none;
 }

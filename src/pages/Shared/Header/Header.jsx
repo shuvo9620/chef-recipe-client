@@ -19,7 +19,7 @@ const Header = () => {
     return (
         <Container>
             <Navbar bg="light" expand="lg">
-                <Navbar.Brand to="/">Chef Recipe</Navbar.Brand>
+                <Navbar.Brand href="/" className='fw-bolder'>Master Chef</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="mr-auto d-flex flex-grow-1">

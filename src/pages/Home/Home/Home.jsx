@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import ChefsCard from '../../ChefsCard/ChefsCard';
 import MenuItem from '../../MenuItem/MenuItem';
+import NewsLetter from '../NewsLetter/NewsLetter';
 
 const Home = () => {
     const [chefs, setChefs] = useState([]);
@@ -42,6 +43,7 @@ const Home = () => {
                     }
                 </div>
             </div>
+            <NewsLetter></NewsLetter>
         </div >
     );
 };
